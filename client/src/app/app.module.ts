@@ -11,6 +11,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { Config } from './config';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { UsersComponent } from './users/users.component';
+import { NotificationService } from './notification.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { UsersComponent } from './users/users.component';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [UserService, Config],
+  providers: [UserService, Config, NotificationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
