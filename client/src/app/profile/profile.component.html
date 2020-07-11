@@ -14,6 +14,9 @@
       [attr.disabled]="!isInEditMode ? 'disabled' : null"
     />
   </div>
+  <div class="alert alert-danger" *ngIf="err">
+    <strong>{{ err }}</strong>
+  </div>
   <button class="btn btn-primary" type="submit" *ngIf="isInEditMode">
     UPDATE
   </button>

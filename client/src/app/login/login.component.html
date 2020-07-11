@@ -17,5 +17,8 @@
     </label>
     <input id="pass" type="text" formControlName="pass" class="form-control" />
   </div>
+  <div class="alert alert-danger" *ngIf="err">
+    <strong>{{ err }}</strong>
+  </div>
   <button type="submit" class="btn btn-primary">LOGIN</button>
 </form>

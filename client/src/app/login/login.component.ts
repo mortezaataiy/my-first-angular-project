@@ -10,6 +10,7 @@ import { FormBuilder } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   loginForm;
+  err;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -30,11 +31,11 @@ export class LoginComponent implements OnInit {
 
   onSubmit(loginData) {
     if (!loginData.userId) {
-      window.alert("UserId can't empty!");
+      this.err = "UserId can't empty!";
       return;
     }
     if (!loginData.pass) {
-      window.alert("Pass can't empty!");
+      this.err = "Pass can't empty!";
       return;
     }
     this.userService
@@ -44,13 +45,13 @@ export class LoginComponent implements OnInit {
       })
       .catch((err) => {
         if (err.userId == 'IS_NOT_VALID') {
-          window.alert('UserId is invalid!');
+          this.err = 'UserId is invalid!';
         } else if (err.pass == 'IS_NOT_VALID') {
-          window.alert('Pass is invalid!');
+          this.err = 'Pass is invalid!';
         } else if (err.user == 'NOT_FOUND') {
-          window.alert('dont match any user with this userId and pass');
+          this.err = 'dont match any user with this userId and pass';
         } else {
-          window.alert(JSON.stringify(err));
+          this.err = 'Unhandled ERROR!';
         }
       });
   }

@@ -11,6 +11,7 @@ import { FormBuilder } from '@angular/forms';
 export class ProfileComponent implements OnInit {
   editProfileForm;
   isInEditMode = false;
+  err;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -24,8 +25,8 @@ export class ProfileComponent implements OnInit {
       .getUser()
       .then((user) => {
         if (!user) {
-          window.alert('user not found in profile page');
-          //router.navigate(['/login']);
+          this.err = 'user not found in profile page';
+          router.navigate(['/login']);
           return;
         }
         this.editProfileForm = this.formBuilder.group({
@@ -33,8 +34,8 @@ export class ProfileComponent implements OnInit {
         });
       })
       .catch((err) => {
-        window.alert('get user err profile page: ' + JSON.stringify(err));
-        //router.navigate(['/login']);
+        this.err = 'get user err profile page: ' + JSON.stringify(err);
+        router.navigate(['/login']);
       });
   }
 
@@ -51,8 +52,8 @@ export class ProfileComponent implements OnInit {
       .updateProfile(editProfileData.name)
       .then((user) => {
         if (!user) {
-          window.alert('user not found in profile page');
-          //router.navigate(['/login']);
+          this.err = 'user not found in profile page';
+          this.router.navigate(['/login']);
           return;
         }
         this.editProfileForm = this.formBuilder.group({
@@ -61,7 +62,7 @@ export class ProfileComponent implements OnInit {
         this.isInEditMode = false;
       })
       .catch((err) => {
-        window.alert(JSON.stringify(err));
+        this.err = JSON.stringify(err);
       });
   }
 }
