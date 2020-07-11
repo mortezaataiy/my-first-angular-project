@@ -15,7 +15,10 @@
           <span
             class="glyphicon glyphicon-bell"
             [ngStyle]="{
-              color: myNotifications.length ? '#ff5a5a' : '#9d9d9d'
+              color:
+                myNotifications && myNotifications.length
+                  ? '#ff5a5a'
+                  : '#9d9d9d'
             }"
           ></span>
           <span *ngIf="myNotifications" style="font-size: 14px; margin: 5px;">{{

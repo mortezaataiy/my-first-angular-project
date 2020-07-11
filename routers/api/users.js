@@ -64,7 +64,12 @@ router.post(
       var user = req.user;
       res.json({
         success: true,
-        user: { id: user.id, user_id: user.user_id, name: user.name },
+        user: {
+          id: user.id,
+          user_id: user.user_id,
+          name: user.name,
+          last_notification_id_viewed: user.last_notification_id_viewed,
+        },
       });
     } else {
       res.status(400).json({ user: "not found" });

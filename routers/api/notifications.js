@@ -21,20 +21,20 @@ router.post(
   (req, res) => {
     res.status(200);
     if (req.user) {
-      publicModels.notification.find(
-        { u_id: req.user.id, id: orm.gt(req.user.last_notification_id_viewed) },
-        function (err, notifications) {
-          if (err) {
-            console.log(err);
-            res.status(500).json({ msg: "server error" });
-            return;
-          }
-          res.json({
-            success: true,
-            notifications,
-          });
+      publicModels.notification.find({ u_id: req.user.id }, function (
+        err,
+        notifications
+      ) {
+        if (err) {
+          console.log(err);
+          res.status(500).json({ msg: "server error" });
+          return;
         }
-      );
+        res.json({
+          success: true,
+          notifications,
+        });
+      });
     }
   }
 );

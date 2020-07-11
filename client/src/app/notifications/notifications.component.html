@@ -1,0 +1,29 @@
+<div class="alert alert-success" *ngIf="success">
+  <strong>{{ success }}</strong>
+</div>
+<div class="alert alert-danger" *ngIf="err">
+  <strong>{{ err }}</strong>
+</div>
+<div
+  class="alert alert-warning"
+  *ngIf="!myNotifications || !myNotifications.length"
+>
+  <strong>Notifications is empty!</strong>
+</div>
+<ul class="list-group">
+  <li
+    *ngFor="
+      let notification of myNotifications ? myNotifications.reverse() : []
+    "
+    class="list-group-item"
+    style="margin-top: 10px;"
+  >
+    <span
+      [ngStyle]="{
+        'font-weight':
+          notification.id > last_notification_id_viewed ? 'bold' : ''
+      }"
+      >u_id:{{ notification.sender_u_id }} send notification to you!</span
+    >
+  </li>
+</ul>

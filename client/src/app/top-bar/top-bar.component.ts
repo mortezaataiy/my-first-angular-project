@@ -34,12 +34,18 @@ export class TopBarComponent implements OnInit {
     );
   }
   checkNotificarion() {
-    this.notifications
-      .getNotifications()
-      .then((my_notifications) => {
-        this.myNotifications = my_notifications;
-      })
-      .catch((err) => console.error(err));
+    this.userService
+      .getUser()
+      .then((user: { last_notification_id_viewed: Number }) => {
+        this.notifications
+          .getNotifications()
+          .then((my_notifications: Array<{ id: Number }>) => {
+            this.myNotifications = my_notifications.filter(
+              (n) => n.id > user.last_notification_id_viewed
+            );
+          })
+          .catch((err) => console.error(err));
+      });
   }
 
   getIsLogin() {
@@ -57,7 +63,7 @@ export class TopBarComponent implements OnInit {
   }
 
   showNotifications() {
-    window.alert('soon');
+    this.router.navigate(['/notifications']);
   }
   logOut() {
     this.userService.logout();

@@ -12,6 +12,7 @@ import { Config } from './config';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { UsersComponent } from './users/users.component';
 import { NotificationService } from './notification.service';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { NotificationService } from './notification.service';
     LoginComponent,
     ProfileComponent,
     UsersComponent,
+    NotificationsComponent,
   ],
   imports: [
     BrowserModule,
