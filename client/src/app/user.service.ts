@@ -19,7 +19,6 @@ export class UserService {
       });
       req.subscribe((response) => {
         if (response['success']) {
-          window.alert(JSON.stringify(response));
           this.user = response['user'];
           this.token = response['token'];
           localStorage.setItem('token', this.token);

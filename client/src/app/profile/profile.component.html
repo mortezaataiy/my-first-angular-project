@@ -6,7 +6,23 @@
     <label for="name">
       Name
     </label>
-    <input id="name" type="text" formControlName="name" class="form-control" />
+    <input
+      id="name"
+      type="text"
+      formControlName="name"
+      class="form-control"
+      [attr.disabled]="!isInEditMode ? 'disabled' : null"
+    />
   </div>
-  <button class="btn btn-primary" type="submit">UPDATE</button>
+  <button class="btn btn-primary" type="submit" *ngIf="isInEditMode">
+    UPDATE
+  </button>
+  <button
+    class="btn btn-primary"
+    type="button"
+    (click)="gotoEditMode()"
+    *ngIf="!isInEditMode"
+  >
+    EDIT
+  </button>
 </form>

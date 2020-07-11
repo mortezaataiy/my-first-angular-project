@@ -3,11 +3,15 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="/">My first Angular project</a>
     </div>
-    <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav" *ngIf="isLogin">
       <li class="active"><a href="/">Profile</a></li>
+    </ul>
+    <ul class="nav navbar-nav" *ngIf="!isLogin">
+      <li class="active"><a href="/">Login</a></li>
     </ul>
     <form
       [formGroup]="searchForm"
+      (ngSubmit)="search(searchForm.value.text)"
       class="navbar-form navbar-left"
       action="/action_page.php"
     >

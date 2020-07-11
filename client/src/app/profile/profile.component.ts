@@ -10,6 +10,7 @@ import { FormBuilder } from '@angular/forms';
 })
 export class ProfileComponent implements OnInit {
   editProfileForm;
+  isInEditMode = false;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -37,7 +38,13 @@ export class ProfileComponent implements OnInit {
       });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.isInEditMode = false;
+  }
+
+  gotoEditMode() {
+    this.isInEditMode = true;
+  }
 
   onSubmit(editProfileData) {
     this.userService
@@ -51,6 +58,7 @@ export class ProfileComponent implements OnInit {
         this.editProfileForm = this.formBuilder.group({
           name: user['name'],
         });
+        this.isInEditMode = false;
       })
       .catch((err) => {
         window.alert(JSON.stringify(err));

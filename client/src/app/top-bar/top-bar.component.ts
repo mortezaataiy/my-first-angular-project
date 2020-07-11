@@ -10,6 +10,7 @@ import { UserService } from '../user.service';
 })
 export class TopBarComponent implements OnInit {
   searchForm;
+  isLogin = false;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -21,7 +22,13 @@ export class TopBarComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.userService.getToken()) {
+      this.isLogin = true;
+    } else {
+      this.isLogin = false;
+    }
+  }
 
   showNotifications() {
     window.alert('soon');
@@ -29,5 +36,8 @@ export class TopBarComponent implements OnInit {
   logOut() {
     this.userService.logout();
     this.router.navigate(['/']);
+  }
+  search(text) {
+    window.alert('soon');
   }
 }
