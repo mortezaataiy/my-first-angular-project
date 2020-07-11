@@ -117,8 +117,18 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     res.status(200);
+    if (!req.body.text) {
+      console.log(req.body);
+      res.status(400).json({ text: "IS_EMPTY" });
+      return;
+    }
     publicModels.user.find(
-      { or: [{ user_id: req.body.text }, { name: req.body.text }] },
+      {
+        or: [
+          { user_id: req.body.text },
+          { name: orm.like(req.body.text + "%") },
+        ],
+      },
       function (err, users) {
         if (err) {
           console.log(err);

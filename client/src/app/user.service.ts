@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Config } from './config';
+import { rejects } from 'assert';
 @Injectable({
   providedIn: 'root',
 })
@@ -93,6 +94,39 @@ export class UserService {
           rej(response);
         }
       });
+    });
+  }
+  search(text) {
+    return new Promise((res, rej) => {
+      if (!text) {
+        rej('input text cant empty!');
+        return;
+      }
+      if (!this.token) {
+        rej({});
+        return;
+      }
+      var req = this.http.post(
+        this.config.host + this.config.searchUrl,
+        { text: text },
+        {
+          headers: new HttpHeaders({
+            Authorization: this.token,
+          }),
+        }
+      );
+      req.subscribe(
+        (response) => {
+          if (response['success'] == true) {
+            res(response['users']);
+          } else {
+            rej(response);
+          }
+        },
+        (error) => {
+          rej(error);
+        }
+      );
     });
   }
 }

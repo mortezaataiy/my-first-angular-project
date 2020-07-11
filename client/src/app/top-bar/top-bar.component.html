@@ -3,19 +3,19 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="/">My first Angular project</a>
     </div>
-    <ul class="nav navbar-nav" *ngIf="isLogin">
+    <ul class="nav navbar-nav" *ngIf="getIsLogin()">
       <li class="active"><a href="/">Profile</a></li>
     </ul>
-    <ul class="nav navbar-nav" *ngIf="!isLogin">
+    <ul class="nav navbar-nav" *ngIf="!getIsLogin()">
       <li class="active"><a href="/">Login</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li>
+      <li *ngIf="getIsLogin()">
         <button (click)="showNotifications()" class="btn-link btn-lg">
           <span class="glyphicon glyphicon-bell"></span>
         </button>
       </li>
-      <li>
+      <li *ngIf="getIsLogin()">
         <button (click)="logOut()" class="btn-link btn-lg">
           <span class="glyphicon glyphicon-log-out"></span>
         </button>
@@ -26,9 +26,16 @@
       (ngSubmit)="search(searchForm.value.text)"
       class="navbar-form navbar-right"
       action="/action_page.php"
+      *ngIf="getIsLogin()"
     >
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="Search" />
+        <input
+          name="text"
+          type="text"
+          class="form-control"
+          placeholder="Search"
+          formControlName="text"
+        />
       </div>
       <button type="submit" class="btn btn-default">
         <span class="glyphicon glyphicon-search"></span>

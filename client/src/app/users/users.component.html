@@ -1,0 +1,17 @@
+<div class="alert alert-danger" *ngIf="err">
+  <strong>{{ err }}</strong>
+</div>
+<div class="alert alert-warning" *ngIf="!users || !users.length">
+  <strong>Search result is empty!</strong>
+</div>
+<ul class="list-group">
+  <li
+    *ngFor="let user of users"
+    class="list-group-item"
+    style="cursor: pointer; margin-top: 10px;"
+    (click)="onUserClick(user.id)"
+  >
+    {{ user.name }}
+    <span class="badge">@{{ user.user_id }}</span>
+  </li>
+</ul>

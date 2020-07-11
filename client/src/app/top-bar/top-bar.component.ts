@@ -22,11 +22,13 @@ export class TopBarComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  getIsLogin() {
     if (this.userService.getToken()) {
-      this.isLogin = true;
+      return true;
     } else {
-      this.isLogin = false;
+      return false;
     }
   }
 
@@ -38,6 +40,6 @@ export class TopBarComponent implements OnInit {
     this.router.navigate(['/']);
   }
   search(text) {
-    window.alert('soon');
+    this.router.navigate(['/search', text]);
   }
 }
