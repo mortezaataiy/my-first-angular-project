@@ -62,4 +62,29 @@ export class NotificationService {
       });
     });
   }
+
+  setLastNotificationViewed(last_notification_id_viewed) {
+    return new Promise((res, rej) => {
+      if (!this.user.token) {
+        rej(null);
+        return;
+      }
+      var req = this.http.post(
+        this.config.host + this.config.set_last_notification_id_viewedUrl,
+        { last_notification_id_viewed },
+        {
+          headers: new HttpHeaders({
+            Authorization: this.user.token,
+          }),
+        }
+      );
+      req.subscribe((response) => {
+        if (response['success']) {
+          res(true);
+        } else {
+          rej(response);
+        }
+      });
+    });
+  }
 }

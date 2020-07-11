@@ -43,7 +43,9 @@ export class NotificationsComponent implements OnInit {
       .getNotifications()
       .then((my_notifications) => {
         this.myNotifications = my_notifications;
-        //todo: set last_notification_id_viewed
+        this.notifications.setLastNotificationViewed(
+          this.myNotifications[this.myNotifications.length - 1].id
+        );
       })
       .catch((err) => console.error(err));
   }
