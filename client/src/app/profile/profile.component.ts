@@ -48,6 +48,11 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit(editProfileData) {
+    if (!editProfileData.name) {
+      this.err = "name can't empty!";
+      return;
+    }
+    this.err = '';
     this.userService
       .updateProfile(editProfileData.name)
       .then((user) => {

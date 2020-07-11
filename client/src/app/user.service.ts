@@ -76,10 +76,6 @@ export class UserService {
         res(null);
         return;
       }
-      if (this.user) {
-        res(this.user);
-        return;
-      }
       var req = this.http.post(
         this.config.host + this.config.updateUserUrl,
         { name },
@@ -90,7 +86,7 @@ export class UserService {
         }
       );
       req.subscribe((response) => {
-        if (response['success']) {
+        if (response['success'] == true) {
           this.user = response['user'];
           res(this.user);
         } else {
