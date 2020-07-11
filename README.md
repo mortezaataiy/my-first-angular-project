@@ -13,6 +13,7 @@ git clone https://github.com/mortezaataiy/my-first-angular-project.git
 ```
 npm install && cd client && npm install
 ```
+Import `basic_db_to_test_angular8.sql` in MySQL and set config file.
 ## start
 ```
 // run server:
@@ -27,3 +28,4 @@ cd client && ng serve --open
 // run server and client
 npm run dev
 ```
+You can use Postman and import `my-first-angular-project.postman_collection.json` to test back-end.
