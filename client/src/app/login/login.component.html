@@ -1,0 +1,16 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+  <div>
+    <label for="userId">
+      UserId
+    </label>
+    <input id="userId" type="text" formControlName="userId" />
+  </div>
+
+  <div>
+    <label for="pass">
+      Pass
+    </label>
+    <input id="pass" type="text" formControlName="pass" />
+  </div>
+  <button type="submit" class="button btn btn-primary">LOGIN</button>
+</form>
