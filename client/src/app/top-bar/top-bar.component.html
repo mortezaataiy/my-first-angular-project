@@ -9,24 +9,56 @@
     <ul class="nav navbar-nav" *ngIf="!getIsLogin()">
       <li class="active"><a href="/">Login</a></li>
     </ul>
+
     <ul class="nav navbar-nav navbar-right">
-      <li *ngIf="getIsLogin()">
-        <button (click)="showNotifications()" class="btn-link btn-lg">
+      <li *ngIf="getIsLogin()" class="nav-item dropdown">
+        <button
+          class="btn-link btn-lg dropdown-toggle"
+          data-toggle="dropdown"
+          (click)="setLastNotificationViewed()"
+        >
           <span
             class="glyphicon glyphicon-bell"
             [ngStyle]="{
-              color:
-                myNotifications && myNotifications.length
-                  ? '#ff5a5a'
-                  : '#9d9d9d'
+              color: numberOfNewNotification ? '#ff5a5a' : '#9d9d9d'
             }"
           ></span>
           <span
-            *ngIf="myNotifications && myNotifications.length"
+            *ngIf="numberOfNewNotification"
             style="font-size: 14px; margin: 5px;"
-            >{{ myNotifications.length }}</span
+            >{{ numberOfNewNotification }}</span
           >
         </button>
+        <ul class="dropdown-menu list-group">
+          <li
+            class="list-group-item"
+            *ngFor="
+              let notification of myNotifications
+                ? myNotifications.reverse().slice(0, 5)
+                : []
+            "
+          >
+            <a style="cursor: initial;"
+              ><span
+                [ngStyle]="{
+                  'font-weight':
+                    notification.id >
+                    (tmp_last_notification_id_viewed ||
+                      last_notification_id_viewed)
+                      ? 'bold'
+                      : ''
+                }"
+                >u_id:{{ notification.sender_u_id }} send notification to
+                you!</span
+              ></a
+            >
+          </li>
+          <li class="list-group-item">
+            <a href="/notifications"
+              ><span style="font-weight: bold;">SHOW ALL...</span></a
+            >
+          </li>
+        </ul>
       </li>
       <li *ngIf="getIsLogin()">
         <button (click)="logOut()" class="btn-link btn-lg">

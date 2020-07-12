@@ -13,6 +13,10 @@ export class TopBarComponent implements OnInit {
   searchForm;
   isLogin = false;
   myNotifications;
+  numberOfNewNotification;
+  last_notification_id_viewed;
+  // Use tmp because of stop remove bolded items while showing
+  tmp_last_notification_id_viewed;
   interval_id;
 
   constructor(
@@ -28,6 +32,7 @@ export class TopBarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.checkNotificarion();
     this.interval_id = window.setInterval(
       this.checkNotificarion.bind(this),
       3000
@@ -37,12 +42,14 @@ export class TopBarComponent implements OnInit {
     this.userService
       .getUser()
       .then((user: { last_notification_id_viewed: Number }) => {
+        this.last_notification_id_viewed = user.last_notification_id_viewed;
         this.notifications
           .getNotifications()
           .then((my_notifications: Array<{ id: Number }>) => {
-            this.myNotifications = my_notifications.filter(
+            this.myNotifications = my_notifications;
+            this.numberOfNewNotification = my_notifications.filter(
               (n) => n.id > user.last_notification_id_viewed
-            );
+            ).length;
           })
           .catch((err) => console.error(err));
       });
@@ -62,8 +69,11 @@ export class TopBarComponent implements OnInit {
     }
   }
 
-  showNotifications() {
-    this.router.navigate(['/notifications']);
+  setLastNotificationViewed() {
+    this.tmp_last_notification_id_viewed = this.last_notification_id_viewed;
+    this.notifications.setLastNotificationViewed(
+      this.myNotifications[this.myNotifications.length - 1].id
+    );
   }
   logOut() {
     this.userService.logout();
