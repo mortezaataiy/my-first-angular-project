@@ -39,6 +39,7 @@ export class TopBarComponent implements OnInit {
     );
   }
   checkNotificarion() {
+    if (!this.userService.getToken()) return;
     this.userService
       .getUser()
       .then((user: { last_notification_id_viewed: Number }) => {
